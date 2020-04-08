@@ -1,10 +1,12 @@
 package com.altimetrik.ocrbatch.config;
 
 import com.altimetrik.ocrbatch.entity.ApplicationDetails;
+import com.altimetrik.ocrbatch.entity.FileStorage;
 import com.altimetrik.ocrbatch.listener.JobCompletionListener;
 import com.altimetrik.ocrbatch.step.Processor;
 import com.altimetrik.ocrbatch.step.Reader;
 import com.altimetrik.ocrbatch.step.Writer;
+import net.sourceforge.tess4j.Tesseract;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
@@ -33,7 +35,7 @@ public class BatchConfig {
 
 	@Bean
 	public Step orderStep1() {
-		return stepBuilderFactory.get("orderStep1").<ApplicationDetails, ApplicationDetails> chunk(1)
+		return stepBuilderFactory.get("orderStep1").<FileStorage, ApplicationDetails> chunk(1)
 				.reader(new Reader()).processor(new Processor())
 				.writer(new Writer()).build();
 	}
@@ -42,5 +44,15 @@ public class BatchConfig {
 	public JobExecutionListener listener() {
 		return new JobCompletionListener();
 	}
+
+	@Bean
+	public Tesseract getTesseract () {
+		Tesseract tesseract = new Tesseract();
+		tesseract.setDatapath("src/main/resources/tessdata");
+		tesseract.setLanguage("eng");
+
+		return tesseract;
+	}
+
 
 }
