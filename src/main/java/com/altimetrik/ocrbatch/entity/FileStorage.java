@@ -17,13 +17,13 @@ public class FileStorage {
     Integer blobID;
 
     @Lob
-    private Blob irs941;
+    private byte[] irs941;
 
     @Lob
-    private Blob healthcareCosts;
+    private byte[] healthcareCosts;
 
     @Lob
-    private Blob grossPayroll;
+    private byte[] grossPayroll;
 
     private Boolean irs941Processed = false;
 
