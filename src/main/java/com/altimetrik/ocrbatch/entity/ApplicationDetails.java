@@ -42,8 +42,8 @@ public class ApplicationDetails {
     private String fieldComments;    //TEXT? Varchar(255) is not enough
     private String fieldAutoVerified;    //TEXT? Varchar(255) is not enough
     private String applicationComments;    //TEXT? Varchar(255) is not enough
-    private Integer blobID;    //TEXT? Varchar(255) is not enough
-    private Timestamp createdTs;    //TEXT? Varchar(255) is not enough
+    private Integer blobID;
+    private Timestamp createdTs;
 
 //    WHY LEFT OUT?????
     private String tradeName;

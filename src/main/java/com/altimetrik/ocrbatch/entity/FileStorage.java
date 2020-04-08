@@ -24,4 +24,12 @@ public class FileStorage {
 
     @Lob
     private Blob grossPayroll;
+
+    private Boolean irs941Processed = false;
+
+    private Boolean healthcareCostsProcessed = false;
+
+    private Boolean grossPayrollProcessed = false;
+
+
 }
