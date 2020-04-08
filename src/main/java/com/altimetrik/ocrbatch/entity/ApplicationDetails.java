@@ -56,8 +56,6 @@ public class ApplicationDetails {
     private Boolean indCont = false;
     private Boolean selfEmployed = false;
     private String additionalInfo;
-
     private Boolean isBatchProcessed = false;
-
 
 }
