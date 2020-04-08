@@ -1,25 +1,30 @@
 package com.altimetrik.ocrbatch.step;
 
 import com.altimetrik.ocrbatch.entity.ApplicationDetails;
+import com.altimetrik.ocrbatch.repository.ApplicationDetailsRepository;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Reader implements ItemReader<ApplicationDetails> {
 
+	@Autowired
+	ApplicationDetailsRepository applicationDetailsRepository;
+
 	private List<ApplicationDetails> unprocessedApplications = new ArrayList<>();
 
 	private int count = 0;
 
 	@Override
-	public ApplicationDetails read() throws Exception, UnexpectedInputException,
-            ParseException, NonTransientResourceException {
+	public ApplicationDetails read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 
-		//TODO: Create ApplicationDetails repository, autowire it and get only unprocessed records
+		unprocessedApplications = applicationDetailsRepository.findAllByIsBatchProcessedFalse();
+
 		//TODO: Decide if only one record should be fetched from the DB or multiple (depending on how many times read() method is invoked)
 
 		if (count < unprocessedApplications.size()) {
