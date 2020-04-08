@@ -17,6 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 @Configuration
 public class BatchConfig {
 
@@ -53,6 +58,7 @@ public class BatchConfig {
 
 		return tesseract;
 	}
+
 
 
 }

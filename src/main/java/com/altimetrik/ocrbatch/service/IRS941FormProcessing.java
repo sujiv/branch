@@ -3,6 +3,7 @@ package com.altimetrik.ocrbatch.service;
 import com.altimetrik.ocrbatch.entity.ApplicationDetails;
 import com.altimetrik.ocrbatch.entity.FileStorage;
 import com.altimetrik.ocrbatch.repository.FileStorageRepository;
+import com.altimetrik.ocrbatch.utils.Utils;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
 import org.aspectj.apache.bcel.classfile.LineNumber;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,17 +30,13 @@ public class IRS941FormProcessing {
     @Autowired
     private Tesseract tesseract;
 
+
     public ApplicationDetails processIrs941(ApplicationDetails appDetails, FileStorage fileStorage) throws IOException, TesseractException {
 
         byte[] bytes = fileStorage.getIrs941();
 
-        File convFile = new File("irs");
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(fileStorage.getIrs941());
-        fos.close();
-
-        String irs941ocroutput = tesseract.doOCR(convFile);
+        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getIrs941());
+        String irs941ocroutput = tesseract.doOCR(bufferedImage);
 
         String[] lines = irs941ocroutput.split("\n");
         System.out.println("SIZE: " + lines.length);
