@@ -2,6 +2,7 @@ package com.altimetrik.ocrbatch.step;
 
 import com.altimetrik.ocrbatch.entity.ApplicationDetails;
 import com.altimetrik.ocrbatch.repository.ApplicationDetailsRepository;
+import com.altimetrik.ocrbatch.repository.FileStorageRepository;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
@@ -15,6 +16,9 @@ public class Reader implements ItemReader<ApplicationDetails> {
 
 	@Autowired
 	ApplicationDetailsRepository applicationDetailsRepository;
+
+	@Autowired
+	private FileStorageRepository fileStorageRepository;
 
 	private List<ApplicationDetails> unprocessedApplications = new ArrayList<>();
 
@@ -33,7 +37,16 @@ public class Reader implements ItemReader<ApplicationDetails> {
 		} else {
 			count = 0;
 		}
+
+
+		/* new things */
+
+
+
+
 		return null;
 	}
+
+
 
 }
