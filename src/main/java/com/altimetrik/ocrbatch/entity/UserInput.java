@@ -12,11 +12,11 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplicationDetails {
+public class UserInput {
 
     //    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Integer id;
+    private Integer userInputId;
 
     private String legalName;
     private String primaryContact;
@@ -56,6 +56,8 @@ public class ApplicationDetails {
     private Boolean indCont = false;
     private Boolean selfEmployed = false;
     private String additionalInfo;
+
     private Boolean isBatchProcessed = false;
+
 
 }
