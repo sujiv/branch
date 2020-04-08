@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ApplicationDetailsRepository extends JpaRepository<ApplicationDetails, Integer> {
 
-    List<ApplicationDetails> findAllByIsBatchProcessedFalse();
+//    List<ApplicationDetails> findAllByIsBatchProcessedFalse();
 }

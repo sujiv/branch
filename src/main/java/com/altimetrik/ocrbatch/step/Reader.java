@@ -23,7 +23,7 @@ public class Reader implements ItemReader<ApplicationDetails> {
 	@Override
 	public ApplicationDetails read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
 
-		unprocessedApplications = applicationDetailsRepository.findAllByIsBatchProcessedFalse();
+//		unprocessedApplications = applicationDetailsRepository.findAllByIsBatchProcessedFalse();
 		System.out.println("Reader.read(): unprocessedApplications list size is " + unprocessedApplications.size());
 
 		//TODO: Decide if only one record should be fetched from the DB or multiple (depending on how many times read() method is invoked)
