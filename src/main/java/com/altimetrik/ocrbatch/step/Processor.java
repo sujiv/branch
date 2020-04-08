@@ -21,7 +21,6 @@ public class Processor implements ItemProcessor<FileStorage, ApplicationDetails>
 		appDetails = irs941FormProcessing.processIrs941(appDetails, data);
 
 
-
 		return appDetails;
 	}
 
