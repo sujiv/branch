@@ -5,11 +5,8 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
-import java.sql.Blob;
 
 @Entity
-@Table(name = "fileStorage")
 @Data
 public class FileStorage {
 

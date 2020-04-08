@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
@@ -14,48 +16,30 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ApplicationDetails {
 
-    //    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    private String legalName;
-    private String primaryContact;
-    private String businessPhone;
-    private String TIN_EIN_SIN;
-    private String accounts;    //????????
-    private String email;
-    private String FTE_Emp12MnthsPrior;
-    private String empWages;    //Double?
-    private String lessOwnerWagesExcess100K;    //Double / Int ?
-    private String lessQualifiedSickLeaveWagesUnderFFCRA;    //Double / Int ?
-    private String lessQualifiedFamilyLeaveWagesUnderFFCRA;    //Double / Int ?
-    private String groupHealthCareBenefitsInsPremium;    //Double / Int ?
-    private String paymentRetirementBen;
-    private String paymentEmployerPayrollTaxesStateLocal;
-    private String contractLabor;
-    private String lessIndividualContractLaborExcess100K;    //Double / Int ?
-    private String prior12MnthsCumQualifyingPayrollCost;    //Double / Int ?
-    private String avgMonthlyPayrollcosts;    //Double / Int ?
-    private String multiplier2dot5;    //Double?
-    private String EDIL_ObtainedFrmJan31ToBeRefinanced;    //Double?
-    private String PPP_LoadAmntLesserOfCalcOr10Mil;    //Double?
-    private String fieldComments;    //TEXT? Varchar(255) is not enough
-    private String fieldAutoVerified;    //TEXT? Varchar(255) is not enough
-    private String applicationComments;    //TEXT? Varchar(255) is not enough
-    private Integer blobID;
+    private Integer userInputId;
+    private Double FTE_Emp12MnthsPrior;
+    private Double empWages;
+    private Double lessOwnerWagesExcess100K;
+    private Double lessQualifiedSickLeaveWagesUnderFFCRA;
+    private Double lessQualifiedFamilyLeaveWagesUnderFFCRA;
+    private Double groupHealthCareBenefitsInsPremium;
+    private Double paymentRetirementBen;
+    private Double paymentEmployerPayrollTaxesStateLocal;
+    private Double contractLabor;
+    private Double lessIndividualContractLaborExcess100K;
+    private Double prior12MnthsCumQualifyingPayrollCost;
+    private Double avgMonthlyPayrollcosts;
+    private Double multiplier2dot5;
+    private Double EDIL_ObtainedFrmJan31ToBeRefinanced;    //Double?
+    private Double PPP_LoadAmntLesserOfCalcOr10Mil;    //Double?
+    private String fieldComments;   //Contains JSON as string
+    private String fieldAutoVerified;   //Contains JSON as string
+    private String applicationComments;
+    private Boolean processedFlag = false;
+    private String processStatus;
     private Timestamp createdTs;
-
-//    WHY LEFT OUT?????
-    private String tradeName;
-    private BusinessEntityType businessEntityType;
-    private Double avgMonthlyPayroll;
-    private Integer noOfJobs;
-    private Boolean nonProfit = false;
-    private Boolean vetOrg = false;
-    private Boolean tribal = false;
-    private Boolean indCont = false;
-    private Boolean selfEmployed = false;
-    private String additionalInfo;
-    private Boolean isBatchProcessed = false;
 
 }
