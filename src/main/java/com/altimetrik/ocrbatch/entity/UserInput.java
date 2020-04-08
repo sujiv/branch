@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class UserInput {
 
-    //    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Integer userInputId;
 
@@ -24,40 +23,39 @@ public class UserInput {
     private String TIN_EIN_SIN;
     private String accounts;    //????????
     private String email;
-    private String FTE_Emp12MnthsPrior;
-    private String empWages;    //Double?
-    private String lessOwnerWagesExcess100K;    //Double / Int ?
-    private String lessQualifiedSickLeaveWagesUnderFFCRA;    //Double / Int ?
-    private String lessQualifiedFamilyLeaveWagesUnderFFCRA;    //Double / Int ?
-    private String groupHealthCareBenefitsInsPremium;    //Double / Int ?
-    private String paymentRetirementBen;
-    private String paymentEmployerPayrollTaxesStateLocal;
-    private String contractLabor;
-    private String lessIndividualContractLaborExcess100K;    //Double / Int ?
-    private String prior12MnthsCumQualifyingPayrollCost;    //Double / Int ?
-    private String avgMonthlyPayrollcosts;    //Double / Int ?
-    private String multiplier2dot5;    //Double?
-    private String EDIL_ObtainedFrmJan31ToBeRefinanced;    //Double?
-    private String PPP_LoadAmntLesserOfCalcOr10Mil;    //Double?
-    private String fieldComments;    //TEXT? Varchar(255) is not enough
-    private String fieldAutoVerified;    //TEXT? Varchar(255) is not enough
-    private String applicationComments;    //TEXT? Varchar(255) is not enough
-    private Integer blobID;
-    private Timestamp createdTs;
-
-//    WHY LEFT OUT?????
-    private String tradeName;
-    private BusinessEntityType businessEntityType;
-    private Double avgMonthlyPayroll;
-    private Integer noOfJobs;
     private Boolean nonProfit = false;
     private Boolean vetOrg = false;
     private Boolean tribal = false;
     private Boolean indCont = false;
-    private Boolean selfEmployed = false;
-    private String additionalInfo;
+    private Boolean selfEmp = false;
+    private String tradeName;
+    private BusinessEntityType businessEntityType;
+    private Double avgMonthlyPayrollcosts;
+    private Integer numJobs;
+    private String addInfo;
+    private Boolean eligibilityLine1 = false;
+    private Boolean eligibilityLine2 = false;
+    private Boolean eligibilityLine3 = false;
+    private Boolean eligibilityLine4 = false;
+    private Boolean eligibilityLine5 = false;
+    private Boolean eligibilityLine6 = false;
+    private Boolean certifyLine1 = false;
+    private Boolean certifyLine2 = false;
+    private Boolean certifyLine3 = false;
+    private Boolean certifyLine4 = false;
+    private Boolean certifyLine5 = false;
+    private Boolean certifyLine6 = false;
+    private Boolean certifyLine7 = false;
+    private String signatureAuthRep;
+    private String signatureOwner;
+    private Boolean irs941Uploaded = false;
+    private Boolean healthcareCostsUploaded = false;
+    private Boolean grossPayrollUploaded = false;
 
-    private Boolean isBatchProcessed = false;
+    private String status;  //ENUM ?
+    private Timestamp createdTs;
+
+//    private Boolean isBatchProcessed = false;
 
 
 }
