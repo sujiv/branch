@@ -8,6 +8,7 @@ public class Processor implements ItemProcessor<ApplicationDetails, ApplicationD
 	@Override
 	public ApplicationDetails process(ApplicationDetails data) throws Exception {
 //		return data.toUpperCase();
+		System.out.println("Processor.process(): Some OCR Processing done ");
 		return data;
 	}
 
