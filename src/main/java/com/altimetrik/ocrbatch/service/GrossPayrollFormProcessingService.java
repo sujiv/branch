@@ -6,6 +6,7 @@ import com.altimetrik.ocrbatch.repository.FileStorageRepository;
 import com.altimetrik.ocrbatch.utils.Utils;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,22 @@ public class GrossPayrollFormProcessingService {
 
     public ApplicationDetails processGrossPayroll(ApplicationDetails appDetails, FileStorage fileStorage) throws IOException, TesseractException, ParseException {
 
-        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
-        String result = tesseract.doOCR(bufferedImage);
+        byte[] bytes = fileStorage.getGrossPayroll();
+//        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
+        String name = "payroll."+ FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
 
-        String[] lines = result.split("\n");
+        System.out.println("name " + name);
+        File convFile = new File(name);
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(bytes);
+        fos.close();
+
+        String payrollOcrResult = tesseract.doOCR(convFile);
+
+        convFile.delete();
+
+        String[] lines = payrollOcrResult.split("\n");
         System.out.println("SIZE: " + lines.length);
 
         String grossTotals = lines[28];
