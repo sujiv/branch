@@ -38,7 +38,9 @@ public class Reader implements ItemReader<FileStorage> {
 
 		/* new things */
 
-		unProcessedFiles = fileStorageRepository.getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
+//		unProcessedFiles = fileStorageRepository.getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
+		FileStorage fs = fileStorageRepository.findByBlobID(1);
+		unProcessedFiles.add(fs);
 
 		if (count < unProcessedFiles.size()) {
 			return unProcessedFiles.get(count++);

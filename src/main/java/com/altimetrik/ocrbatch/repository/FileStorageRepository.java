@@ -9,10 +9,11 @@ import java.util.List;
 @Repository
 public interface FileStorageRepository extends JpaRepository<FileStorage, Integer> {
 
-    List<FileStorage> getAllByIrs941ProcessedIsFalse();
+    /*List<FileStorage> getAllByIrs941ProcessedIsFalse();
     List<FileStorage> getAllByHealthcareCostsProcessedIsFalse();
-    List<FileStorage> getAllByGrossPayrollProcessedIsFalse();
+    List<FileStorage> getAllByGrossPayrollProcessedIsFalse();*/
 
-    List<FileStorage> getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
+    FileStorage findByBlobID(Integer id);
+//    List<FileStorage> getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
 
 }

@@ -1,18 +1,20 @@
 package com.altimetrik.ocrbatch.entity;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
 @Data
+//@Table(name = "file_storage")
 public class FileStorage {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Integer blobID;
+
     Integer userInputId;
 
     @Lob
@@ -31,6 +33,15 @@ public class FileStorage {
     private Boolean grossPayrollProcessed = false;
 
     private Timestamp createdTs;
+
+    public FileStorage() {
+    }
+
+    public FileStorage(byte[] irs941, byte[] healthcareCosts, byte[] grossPayroll) {
+        this.irs941 = irs941;
+        this.healthcareCosts = healthcareCosts;
+        this.grossPayroll = grossPayroll;
+    }
 
 
 }
