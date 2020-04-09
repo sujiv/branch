@@ -34,9 +34,9 @@ public class ApplicationDetails {
     private Double multiplier2dot5 = 0.0;
     private Double EDIL_ObtainedFrmJan31ToBeRefinanced = 0.0;
     private Double PPP_LoadAmntLesserOfCalcOr10Mil = 0.0;
-    private String fieldComments;   //Contains JSON as string
+    private String applicationComments;
     private String fieldAutoVerified = "{\"FTE_Emp12MnthsPrior\":\"N\",\"empWages\":\"N\",\"lessOwnerWagesExcess100K\":\"N\",\"lessQualifiedSickLeaveWagesUnderFFCRA\":\"N\",\"lessQualifiedFamilyLeaveWagesUnderFFCRA\":\"N\",\"groupHealthCareBenefitsInsPremium\":\"N\",\"paymentRetirementBen\":\"N\",\"paymentEmployerPayrollTaxesStateLocal\":\"N\",\"contractLabor\":\"N\",\"lessIndividualContractLaborExcess100K\":\"N\",\"prior12MnthsCumQualifyingPayrollCost\":\"N\",\"avgMonthlyPayrollcosts\":\"N\",\"multiplier2dot5\":\"N\",\"EDIL_ObtainedFrmJan31ToBeRefinanced\":\"N\",\"PPP_LoadAmntLesserOfCalcOr10Mil\":\"N\"}\n";
-    private String applicationComments = "{\n" +
+    private String fieldComments = "{\n" +
             "    \"FTE_Emp12MnthsPrior\": \"\",\n" +
             "    \"empWages\": \"\",\n" +
             "    \"lessOwnerWagesExcess100K\": \"\",\n" +

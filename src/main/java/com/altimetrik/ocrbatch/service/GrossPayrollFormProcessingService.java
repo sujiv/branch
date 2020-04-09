@@ -33,9 +33,9 @@ public class GrossPayrollFormProcessingService {
     @Autowired
     private Tesseract tesseract;
 
-    public ApplicationDetails processGrossPayroll(ApplicationDetails appDetails, FileStorage fileStorage) throws IOException, TesseractException {
+    public ApplicationDetails processGrossPayroll(ApplicationDetails appDetails, FileStorage fileStorage) {
 
-        JSONObject appCommentsObj = new JSONObject(appDetails.getApplicationComments());
+        JSONObject appFieldCommentsObj = new JSONObject(appDetails.getFieldComments());
         JSONObject appAutoVerifiedObj = new JSONObject(appDetails.getFieldAutoVerified());
 
         byte[] bytes = fileStorage.getGrossPayroll();
@@ -43,15 +43,25 @@ public class GrossPayrollFormProcessingService {
         String name = "payroll."+ FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
 
         System.out.println("name " + name);
-        File convFile = new File(name);
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(bytes);
-        fos.close();
 
-        String payrollOcrResult = tesseract.doOCR(convFile);
 
-        convFile.delete();
+        String payrollOcrResult = null;
+        try {
+            File convFile = new File(name);
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(bytes);
+            fos.close();
+            payrollOcrResult = tesseract.doOCR(convFile);
+            convFile.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            System.out.println("Skipping GrossPayroll OCR processing for FileStorage with ID: " + fileStorage.getBlobID());
+
+            return appDetails;
+        }
+
 
         String[] lines = payrollOcrResult.split("\n");
         System.out.println("SIZE: " + lines.length);
@@ -82,7 +92,7 @@ public class GrossPayrollFormProcessingService {
             appDetails.setPaymentEmployerPayrollTaxesStateLocal(Double.valueOf(number.toString()));
         } catch (ParseException e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
+            appFieldCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
 
         }
 
@@ -93,7 +103,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("paymentRetirementBen", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentRetirementBen", e.getMessage());
+            appFieldCommentsObj.put("paymentRetirementBen", e.getMessage());
         }
 
         try {
@@ -103,7 +113,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("prior12MnthsCumQualifyingPayrollCost", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("prior12MnthsCumQualifyingPayrollCost", e.getMessage());
+            appFieldCommentsObj.put("prior12MnthsCumQualifyingPayrollCost", e.getMessage());
         }
 
 
@@ -112,14 +122,14 @@ public class GrossPayrollFormProcessingService {
             System.out.println(AvgTotals);
             String[] AvgTotalWords = AvgTotals.split(" ");
             String AvgVal = AvgTotalWords[1];
-            Number number3 = null;
+            Number number3;
             number3 = format.parse(AvgVal);
             System.out.println("AvgVal : " +number3);
             appDetails.setAvgMonthlyPayrollcosts(Double.valueOf(number3.toString()));
             appAutoVerifiedObj.put("paymentEmployerPayrollTaxesStateLocal", "Y");
         } catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
+            appFieldCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
         }
 
         try {
@@ -132,7 +142,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("multiplier2dot5", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("multiplier2dot5", e.getMessage());
+            appFieldCommentsObj.put("multiplier2dot5", e.getMessage());
         }
 
         try {
@@ -144,8 +154,12 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", e.getMessage());
+            appFieldCommentsObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", e.getMessage());
         }
+
+        //Saving the updated JSON fields
+        appDetails.setFieldAutoVerified(appFieldCommentsObj.toString());
+        appDetails.setFieldAutoVerified(appAutoVerifiedObj.toString());
 
         return appDetails;
     }
