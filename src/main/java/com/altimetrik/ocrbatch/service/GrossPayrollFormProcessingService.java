@@ -77,15 +77,26 @@ public class GrossPayrollFormProcessingService {
         Number number3 = format.parse(AvgVal);
         System.out.println("AvgVal : " +number3);
         appDetails.setAvgMonthlyPayrollcosts(Double.valueOf(number3.toString()));
-
-
-        appDetails.setMultiplier2dot5(appDetails.getAvgMonthlyPayrollcosts()* 2.5d);
+        //for restricting to 2 decimals
+        Double valueForCal2dot5 = appDetails.getAvgMonthlyPayrollcosts()* 2.5d;
+        DecimalFormat df = new DecimalFormat("#.##");
+        valueForCal2dot5 = Double.valueOf(df.format(valueForCal2dot5));
+        appDetails.setMultiplier2dot5(valueForCal2dot5);
 
 
         if(appDetails.getMultiplier2dot5() > 10000000.00)
             appDetails.setPPP_LoadAmntLesserOfCalcOr10Mil(10000000.00);
         else
             appDetails.setPPP_LoadAmntLesserOfCalcOr10Mil(appDetails.getMultiplier2dot5());
+
+        //setting all the empty value to zero
+        appDetails.setLessIndividualContractLaborExcess100K(0.0);
+        appDetails.setLessOwnerWagesExcess100K(0.0);
+        appDetails.setLessQualifiedSickLeaveWagesUnderFFCRA(0.0);
+        appDetails.setLessQualifiedFamilyLeaveWagesUnderFFCRA(0.0);
+        appDetails.setGroupHealthCareBenefitsInsPremium(0.0);
+        appDetails.setContractLabor(0.0);
+        appDetails.setEDIL_ObtainedFrmJan31ToBeRefinanced(0.0);
 
         return appDetails;
     }

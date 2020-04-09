@@ -1,8 +1,6 @@
 package com.altimetrik.ocrbatch.entity;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -25,6 +23,10 @@ public class FileStorage {
 
     @Lob
     private byte[] grossPayroll;
+
+    private String  irs941OrginalFilesName;
+    private String  healthcareCostsOrginalFilesName;
+    private String  grossPayrollOrginalFilesName;
 
     private Boolean irs941Processed = false;
 
