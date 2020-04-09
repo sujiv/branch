@@ -40,7 +40,8 @@ public class GrossPayrollFormProcessingService {
 
         byte[] bytes = fileStorage.getGrossPayroll();
 //        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
-        String name = "payroll."+ FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
+        System.out.println(fileStorage.getGrossPayrollOrginalFilesName());
+        String name = "payroll." + FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
 
         System.out.println("name " + name);
         File convFile = new File(name);
