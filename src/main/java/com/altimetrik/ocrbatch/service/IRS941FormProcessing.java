@@ -3,24 +3,14 @@ package com.altimetrik.ocrbatch.service;
 import com.altimetrik.ocrbatch.entity.ApplicationDetails;
 import com.altimetrik.ocrbatch.entity.FileStorage;
 import com.altimetrik.ocrbatch.repository.FileStorageRepository;
-import com.altimetrik.ocrbatch.utils.Utils;
 import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
 import org.apache.commons.io.FilenameUtils;
-import org.aspectj.apache.bcel.classfile.LineNumber;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 public class IRS941FormProcessing {
@@ -32,55 +22,65 @@ public class IRS941FormProcessing {
     private Tesseract tesseract;
 
 
-    public ApplicationDetails processIrs941(ApplicationDetails appDetails, FileStorage fileStorage) throws IOException, TesseractException {
+    public ApplicationDetails processIrs941(ApplicationDetails appDetails, FileStorage fileStorage) {
+
+        JSONObject appFieldCommentsObj = new JSONObject(appDetails.getFieldComments());
+        JSONObject appAutoVerifiedObj = new JSONObject(appDetails.getFieldAutoVerified());
 
         byte[] bytes = fileStorage.getIrs941();
 
 //        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getIrs941());
 
-
         String name = "irs941."+ FilenameUtils.getExtension(fileStorage.getIrs941OrginalFilesName());
 
         System.out.println("name " + name);
-        File convFile = new File(name);
-        convFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(convFile);
-        fos.write(bytes);
-        fos.close();
 
-        String irs941ocroutput = tesseract.doOCR(convFile);
+        String irs941ocroutput = null;
+        try {
+            File convFile = new File(name);
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(bytes);
+            fos.close();
+            irs941ocroutput = tesseract.doOCR(convFile);
 
-        convFile.delete();
+            convFile.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("EXCEPTION! Skipping IRS941 OCR processing for FileStorage with ID: " + fileStorage.getBlobID());
 
-        String[] lines = irs941ocroutput.split("\n");
-        System.out.println("SIZE: " + lines.length);
-
-        String wages = lines[16];
-        String[] lineWords = wages.split(" ");
-        System.out.println(wages);
-        String number = "";
-        int counter = 0;
-        for (int i=lineWords.length-1; i>0; i--)
-        {
-            if(lineWords[i].equals("2"))
-            {
-                break;
-            }
-            else {
-                number = lineWords[i].replaceAll("[^a-zA-Z0-9]", ".")+ number;
-            }
+            return appDetails;
         }
 
 
-//        long value1 = Long.parseLong( number ); //long - method 1
-//
-//        long value2 = Long.valueOf( number );   //long - method 2
+        try {
+            String[] lines = irs941ocroutput.split("\n");
+            System.out.println("SIZE: " + lines.length);
 
-//        number = "1200";
-//        long value3 = (long)Double.parseDouble(number);;   //long - method 3
+            String wages = lines[16];
+            String[] lineWords = wages.split(" ");
+            System.out.println(wages);
+            String number = "";
+            for (int i=lineWords.length-1; i>0; i--)
+            {
+                if(lineWords[i].equals("2"))
+                {
+                    break;
+                }
+                else {
+                    number = lineWords[i].replaceAll("[^a-zA-Z0-9]", ".")+ number;
+                }
+            }
+            appDetails.setEmpWages(Double.valueOf(number));
+            appAutoVerifiedObj.put("empWages", "Y");
+        }catch (Exception e) {
+            e.printStackTrace();
+            appFieldCommentsObj.put("empWages", e.getMessage());
+        }
 
-
-        appDetails.setEmpWages(Double.valueOf(number));
+        //Saving the updated JSON fields
+        appDetails.setFieldAutoVerified(appFieldCommentsObj.toString());
+        appDetails.setFieldAutoVerified(appAutoVerifiedObj.toString());
 
         return appDetails;
     }

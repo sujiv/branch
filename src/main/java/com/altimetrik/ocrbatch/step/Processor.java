@@ -34,6 +34,7 @@ public class Processor implements ItemProcessor<FileStorage, ApplicationDetails>
 		ApplicationDetails appDetails = new ApplicationDetails();
 		appDetails = irs941FormProcessing.processIrs941(appDetails, data);
 
+//		STEP 2. PROCESSING GROSS PAYROLL
 		appDetails = grossPayrollFormProcessingService.processGrossPayroll(appDetails, data);
 
 		System.out.println(appDetails);
