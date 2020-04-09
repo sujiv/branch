@@ -35,7 +35,7 @@ public class GrossPayrollFormProcessingService {
 
     public ApplicationDetails processGrossPayroll(ApplicationDetails appDetails, FileStorage fileStorage) throws IOException, TesseractException {
 
-        JSONObject appCommentsObj = new JSONObject(appDetails.getApplicationComments());
+        JSONObject appFieldCommentsObj = new JSONObject(appDetails.getFieldComments());
         JSONObject appAutoVerifiedObj = new JSONObject(appDetails.getFieldAutoVerified());
 
         byte[] bytes = fileStorage.getGrossPayroll();
@@ -77,13 +77,13 @@ public class GrossPayrollFormProcessingService {
         Number number = null;
         try {
             number = format.parse(empStateLocalTaxes);
-            System.out.println("empStateLocalTaxes : " +number.toString());
+            System.out.println("paymentEmployerPayrollTaxesStateLocal : " +number.toString());
 
             appDetails.setPaymentEmployerPayrollTaxesStateLocal(Double.valueOf(number.toString()));
+            appAutoVerifiedObj.put("paymentEmployerPayrollTaxesStateLocal", "Y");
         } catch (ParseException e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
-
+            appFieldCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
         }
 
         try {
@@ -93,7 +93,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("paymentRetirementBen", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentRetirementBen", e.getMessage());
+            appFieldCommentsObj.put("paymentRetirementBen", e.getMessage());
         }
 
         try {
@@ -103,7 +103,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("prior12MnthsCumQualifyingPayrollCost", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("prior12MnthsCumQualifyingPayrollCost", e.getMessage());
+            appFieldCommentsObj.put("prior12MnthsCumQualifyingPayrollCost", e.getMessage());
         }
 
 
@@ -119,7 +119,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("paymentEmployerPayrollTaxesStateLocal", "Y");
         } catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
+            appFieldCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
         }
 
         try {
@@ -132,7 +132,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("multiplier2dot5", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("multiplier2dot5", e.getMessage());
+            appFieldCommentsObj.put("multiplier2dot5", e.getMessage());
         }
 
         try {
@@ -144,7 +144,7 @@ public class GrossPayrollFormProcessingService {
             appAutoVerifiedObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", "Y");
         }catch (Exception e) {
             e.printStackTrace();
-            appCommentsObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", e.getMessage());
+            appFieldCommentsObj.put("PPP_LoadAmntLesserOfCalcOr10Mil", e.getMessage());
         }
 
         return appDetails;
