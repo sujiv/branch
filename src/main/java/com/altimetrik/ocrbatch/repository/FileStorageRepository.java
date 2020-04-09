@@ -15,5 +15,6 @@ public interface FileStorageRepository extends JpaRepository<FileStorage, Intege
 
     FileStorage findByBlobID(Integer id);
 //    List<FileStorage> getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
+    List<FileStorage> getAllByIrs941ProcessedFalseOrGrossPayrollProcessedFalse();
 
 }

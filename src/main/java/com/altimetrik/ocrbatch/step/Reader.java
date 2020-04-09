@@ -21,8 +21,12 @@ public class Reader implements ItemReader<FileStorage> {
 	@Autowired
 	ApplicationDetailsRepository applicationDetailsRepository;
 
-	@Autowired
+//	@Autowired
 	private FileStorageRepository fileStorageRepository;
+
+	public Reader(FileStorageRepository fileStorageRepository){
+		this.fileStorageRepository = fileStorageRepository;
+	}
 
 
 	private List<FileStorage> unProcessedFiles = new ArrayList<>();
@@ -40,12 +44,9 @@ public class Reader implements ItemReader<FileStorage> {
 
 		/* new things */
 
-//		unProcessedFiles = fileStorageRepository.getAllByIrs941ProcessedFalseOrHealthcareCostsProcessedFalseOrGrossPayrollProcessedFalse();
-		System.out.println(fileStorageRepository);
-
-		FileStorage fs = fileStorageRepository
-				.findByBlobID(1);
-		unProcessedFiles.add(fs);
+		unProcessedFiles = fileStorageRepository.getAllByIrs941ProcessedFalseOrGrossPayrollProcessedFalse();
+//		FileStorage fs = fileStorageRepository.findByBlobID(1);
+//		unProcessedFiles.add(fs);
 
 		if (count < unProcessedFiles.size()) {
 			return unProcessedFiles.get(count++);
