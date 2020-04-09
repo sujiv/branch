@@ -57,6 +57,15 @@ public class IRS941FormProcessing {
             }
         }
 
+
+//        long value1 = Long.parseLong( number ); //long - method 1
+//
+//        long value2 = Long.valueOf( number );   //long - method 2
+
+//        number = "1200";
+//        long value3 = (long)Double.parseDouble(number);;   //long - method 3
+
+
         appDetails.setEmpWages(Double.valueOf(number));
 
         return appDetails;
