@@ -52,8 +52,8 @@ public class UserInput {
     private Boolean healthcareCostsUploaded = false;
     private Boolean grossPayrollUploaded = false;
 
-    private String status;  //ENUM ?
-    private Timestamp createdTs;
+    private String status;
+//    private Timestamp createdTs;
 
 //    private Boolean isBatchProcessed = false;
 
