@@ -6,6 +6,7 @@ import com.altimetrik.ocrbatch.repository.FileStorageRepository;
 import com.altimetrik.ocrbatch.utils.Utils;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.io.FilenameUtils;
 import org.aspectj.apache.bcel.classfile.LineNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,8 +36,21 @@ public class IRS941FormProcessing {
 
         byte[] bytes = fileStorage.getIrs941();
 
-        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getIrs941());
-        String irs941ocroutput = tesseract.doOCR(bufferedImage);
+//        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getIrs941());
+
+
+        String name = "irs941."+ FilenameUtils.getExtension(fileStorage.getIrs941OrginalFilesName());
+
+        System.out.println("name " + name);
+        File convFile = new File(name);
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(bytes);
+        fos.close();
+
+        String irs941ocroutput = tesseract.doOCR(convFile);
+
+        convFile.delete();
 
         String[] lines = irs941ocroutput.split("\n");
         System.out.println("SIZE: " + lines.length);
