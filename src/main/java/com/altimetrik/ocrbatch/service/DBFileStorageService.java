@@ -18,7 +18,7 @@ public class DBFileStorageService {
 
     public FileStorage storeFile(MultipartFile irs941, MultipartFile payroll) throws IOException {
         // Normalize file name
-        FileStorage fileStorage = new FileStorage(irs941.getBytes(),irs941.getBytes(),payroll.getBytes());
+        FileStorage fileStorage = new FileStorage(irs941.getBytes(),payroll.getBytes());
         return fileStorageRepository.save(fileStorage);
 
     }

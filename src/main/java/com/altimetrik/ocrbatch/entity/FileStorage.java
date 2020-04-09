@@ -37,9 +37,9 @@ public class FileStorage {
     public FileStorage() {
     }
 
-    public FileStorage(byte[] irs941, byte[] healthcareCosts, byte[] grossPayroll) {
+    public FileStorage(byte[] irs941, byte[] grossPayroll) {
         this.irs941 = irs941;
-        this.healthcareCosts = healthcareCosts;
+//        this.healthcareCosts = healthcareCosts;
         this.grossPayroll = grossPayroll;
     }
 
