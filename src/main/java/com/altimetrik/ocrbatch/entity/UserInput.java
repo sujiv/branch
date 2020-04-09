@@ -29,7 +29,7 @@ public class UserInput {
     private Boolean indCont = false;
     private Boolean selfEmp = false;
     private String tradeName;
-    private BusinessEntityType businessEntityType;
+    private String businessEntityType;
     private Double avgMonthlyPayrollcosts;
     private Integer numJobs;
     private String addInfo;
@@ -52,7 +52,7 @@ public class UserInput {
     private Boolean healthcareCostsUploaded = false;
     private Boolean grossPayrollUploaded = false;
 
-    private String status;
+    private String status;  //ENUM ?
 //    private Timestamp createdTs;
 
 //    private Boolean isBatchProcessed = false;
