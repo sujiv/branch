@@ -19,21 +19,21 @@ public class ApplicationDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userInputId;
-    private Double FTE_Emp12MnthsPrior;
-    private Double empWages;
-    private Double lessOwnerWagesExcess100K;
-    private Double lessQualifiedSickLeaveWagesUnderFFCRA;
-    private Double lessQualifiedFamilyLeaveWagesUnderFFCRA;
-    private Double groupHealthCareBenefitsInsPremium;
-    private Double paymentRetirementBen;
-    private Double paymentEmployerPayrollTaxesStateLocal;
-    private Double contractLabor;
-    private Double lessIndividualContractLaborExcess100K;
-    private Double prior12MnthsCumQualifyingPayrollCost;
-    private Double avgMonthlyPayrollcosts;
-    private Double multiplier2dot5;
-    private Double EDIL_ObtainedFrmJan31ToBeRefinanced;    //Double?
-    private Double PPP_LoadAmntLesserOfCalcOr10Mil;    //Double?
+    private Double FTE_Emp12MnthsPrior = 0.0;
+    private Double empWages = 0.0;
+    private Double lessOwnerWagesExcess100K = 0.0;
+    private Double lessQualifiedSickLeaveWagesUnderFFCRA = 0.0;
+    private Double lessQualifiedFamilyLeaveWagesUnderFFCRA = 0.0;
+    private Double groupHealthCareBenefitsInsPremium = 0.0;
+    private Double paymentRetirementBen = 0.0;
+    private Double paymentEmployerPayrollTaxesStateLocal = 0.0;
+    private Double contractLabor = 0.0;
+    private Double lessIndividualContractLaborExcess100K = 0.0;
+    private Double prior12MnthsCumQualifyingPayrollCost = 0.0;
+    private Double avgMonthlyPayrollcosts = 0.0;
+    private Double multiplier2dot5 = 0.0;
+    private Double EDIL_ObtainedFrmJan31ToBeRefinanced = 0.0;
+    private Double PPP_LoadAmntLesserOfCalcOr10Mil = 0.0;
     private String fieldComments;   //Contains JSON as string
     private String fieldAutoVerified = "{\"FTE_Emp12MnthsPrior\":\"N\",\"empWages\":\"N\",\"lessOwnerWagesExcess100K\":\"N\",\"lessQualifiedSickLeaveWagesUnderFFCRA\":\"N\",\"lessQualifiedFamilyLeaveWagesUnderFFCRA\":\"N\",\"groupHealthCareBenefitsInsPremium\":\"N\",\"paymentRetirementBen\":\"N\",\"paymentEmployerPayrollTaxesStateLocal\":\"N\",\"contractLabor\":\"N\",\"lessIndividualContractLaborExcess100K\":\"N\",\"prior12MnthsCumQualifyingPayrollCost\":\"N\",\"avgMonthlyPayrollcosts\":\"N\",\"multiplier2dot5\":\"N\",\"EDIL_ObtainedFrmJan31ToBeRefinanced\":\"N\",\"PPP_LoadAmntLesserOfCalcOr10Mil\":\"N\"}\n";
     private String applicationComments = "{\n" +
@@ -55,6 +55,6 @@ public class ApplicationDetails {
             "}";
     private Boolean processedFlag = false;
     private String processStatus;
-    private Timestamp createdTs;
+    private Timestamp createdTs = new Timestamp(System.currentTimeMillis());
 
 }
