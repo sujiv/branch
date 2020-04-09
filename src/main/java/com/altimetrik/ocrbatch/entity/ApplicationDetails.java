@@ -18,7 +18,6 @@ public class ApplicationDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
     private Integer userInputId;
     private Double FTE_Emp12MnthsPrior;
     private Double empWages;
