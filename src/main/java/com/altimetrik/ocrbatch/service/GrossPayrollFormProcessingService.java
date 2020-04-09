@@ -6,16 +6,23 @@ import com.altimetrik.ocrbatch.repository.FileStorageRepository;
 import com.altimetrik.ocrbatch.utils.Utils;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
+import java.util.Locale;
 
 @Service
 public class GrossPayrollFormProcessingService {
@@ -31,10 +38,22 @@ public class GrossPayrollFormProcessingService {
         JSONObject appCommentsObj = new JSONObject(appDetails.getApplicationComments());
         JSONObject appAutoVerifiedObj = new JSONObject(appDetails.getFieldAutoVerified());
 
-        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
-        String result = tesseract.doOCR(bufferedImage);
+        byte[] bytes = fileStorage.getGrossPayroll();
+//        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
+        String name = "payroll."+ FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
 
-        String[] lines = result.split("\n");
+        System.out.println("name " + name);
+        File convFile = new File(name);
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(bytes);
+        fos.close();
+
+        String payrollOcrResult = tesseract.doOCR(convFile);
+
+        convFile.delete();
+
+        String[] lines = payrollOcrResult.split("\n");
         System.out.println("SIZE: " + lines.length);
 
         String grossTotals = lines[28];
