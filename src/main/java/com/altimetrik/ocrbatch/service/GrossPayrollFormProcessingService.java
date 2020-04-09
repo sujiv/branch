@@ -40,7 +40,8 @@ public class GrossPayrollFormProcessingService {
 
         byte[] bytes = fileStorage.getGrossPayroll();
 //        BufferedImage bufferedImage = Utils.createImageFromBytes(fileStorage.getGrossPayroll());
-        String name = "payroll."+ FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
+        System.out.println(fileStorage.getGrossPayrollOrginalFilesName());
+        String name = "payroll." + FilenameUtils.getExtension(fileStorage.getGrossPayrollOrginalFilesName());
 
         System.out.println("name " + name);
 
@@ -87,13 +88,13 @@ public class GrossPayrollFormProcessingService {
         Number number = null;
         try {
             number = format.parse(empStateLocalTaxes);
-            System.out.println("empStateLocalTaxes : " +number.toString());
+            System.out.println("paymentEmployerPayrollTaxesStateLocal : " +number.toString());
 
             appDetails.setPaymentEmployerPayrollTaxesStateLocal(Double.valueOf(number.toString()));
+            appAutoVerifiedObj.put("paymentEmployerPayrollTaxesStateLocal", "Y");
         } catch (ParseException e) {
             e.printStackTrace();
             appFieldCommentsObj.put("paymentEmployerPayrollTaxesStateLocal", e.getMessage());
-
         }
 
         try {
@@ -122,7 +123,7 @@ public class GrossPayrollFormProcessingService {
             System.out.println(AvgTotals);
             String[] AvgTotalWords = AvgTotals.split(" ");
             String AvgVal = AvgTotalWords[1];
-            Number number3;
+            Number number3 = null;
             number3 = format.parse(AvgVal);
             System.out.println("AvgVal : " +number3);
             appDetails.setAvgMonthlyPayrollcosts(Double.valueOf(number3.toString()));

@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -35,7 +32,9 @@ public class ApplicationDetails {
     private Double EDIL_ObtainedFrmJan31ToBeRefinanced = 0.0;
     private Double PPP_LoadAmntLesserOfCalcOr10Mil = 0.0;
     private String applicationComments;
+    @Column(length = 1000)
     private String fieldAutoVerified = "{\"FTE_Emp12MnthsPrior\":\"N\",\"empWages\":\"N\",\"lessOwnerWagesExcess100K\":\"N\",\"lessQualifiedSickLeaveWagesUnderFFCRA\":\"N\",\"lessQualifiedFamilyLeaveWagesUnderFFCRA\":\"N\",\"groupHealthCareBenefitsInsPremium\":\"N\",\"paymentRetirementBen\":\"N\",\"paymentEmployerPayrollTaxesStateLocal\":\"N\",\"contractLabor\":\"N\",\"lessIndividualContractLaborExcess100K\":\"N\",\"prior12MnthsCumQualifyingPayrollCost\":\"N\",\"avgMonthlyPayrollcosts\":\"N\",\"multiplier2dot5\":\"N\",\"EDIL_ObtainedFrmJan31ToBeRefinanced\":\"N\",\"PPP_LoadAmntLesserOfCalcOr10Mil\":\"N\"}\n";
+    @Column(length = 1000)
     private String fieldComments = "{\n" +
             "    \"FTE_Emp12MnthsPrior\": \"\",\n" +
             "    \"empWages\": \"\",\n" +
